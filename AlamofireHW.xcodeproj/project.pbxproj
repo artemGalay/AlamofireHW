@@ -15,6 +15,7 @@
 		D956871A2912478A00D94876 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95687182912478A00D94876 /* LaunchScreen.storyboard */; };
 		D95687222912484B00D94876 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D95687212912484B00D94876 /* Podfile */; };
 		D98D27D329124E3F00C5B67D /* CardsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D27D229124E3F00C5B67D /* CardsModel.swift */; };
+		D98D27D6291250AA00C5B67D /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D27D5291250AA00C5B67D /* CardCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		D956871B2912478A00D94876 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D95687212912484B00D94876 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		D98D27D229124E3F00C5B67D /* CardsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsModel.swift; sourceTree = "<group>"; };
+		D98D27D5291250AA00C5B67D /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				D95687112912478900D94876 /* MainViewController.swift */,
+				D98D27D42912508600C5B67D /* Cells */,
 				D98D27D129124E2700C5B67D /* Models */,
 			);
 			path = Sources;
@@ -124,6 +127,14 @@
 				D98D27D229124E3F00C5B67D /* CardsModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D98D27D42912508600C5B67D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D98D27D5291250AA00C5B67D /* CardCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D98D27D6291250AA00C5B67D /* CardCell.swift in Sources */,
 				D95687122912478900D94876 /* MainViewController.swift in Sources */,
 				D98D27D329124E3F00C5B67D /* CardsModel.swift in Sources */,
 				D956870E2912478900D94876 /* AppDelegate.swift in Sources */,
@@ -374,6 +386,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_PREPROCESS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,6 +394,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ArtemGalay.AlamofireHW;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -403,6 +419,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_PREPROCESS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -410,6 +427,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ArtemGalay.AlamofireHW;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
