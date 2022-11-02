@@ -9,6 +9,8 @@ import UIKit
 
 class CardCell: UITableViewCell {
 
+    static let identifier = "CardCell"
+
     var card: Card? {
         didSet {
             manaCostLabel.text = card?.type
@@ -29,11 +31,7 @@ class CardCell: UITableViewCell {
         }
     }
 
-    private let manaCostLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let manaCostLabel = UILabel(numberOfLines: 1)
 
     private let nameLabel: UILabel = {
         let label = UILabel()
