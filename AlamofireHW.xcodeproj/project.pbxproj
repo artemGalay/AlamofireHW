@@ -14,6 +14,7 @@
 		D95687172912478A00D94876 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D95687162912478A00D94876 /* Assets.xcassets */; };
 		D956871A2912478A00D94876 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95687182912478A00D94876 /* LaunchScreen.storyboard */; };
 		D95687222912484B00D94876 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D95687212912484B00D94876 /* Podfile */; };
+		D98D27D329124E3F00C5B67D /* CardsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D27D229124E3F00C5B67D /* CardsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		D95687192912478A00D94876 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D956871B2912478A00D94876 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D95687212912484B00D94876 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		D98D27D229124E3F00C5B67D /* CardsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,8 +113,17 @@
 			isa = PBXGroup;
 			children = (
 				D95687112912478900D94876 /* MainViewController.swift */,
+				D98D27D129124E2700C5B67D /* Models */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		D98D27D129124E2700C5B67D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D98D27D229124E3F00C5B67D /* CardsModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D95687122912478900D94876 /* MainViewController.swift in Sources */,
+				D98D27D329124E3F00C5B67D /* CardsModel.swift in Sources */,
 				D956870E2912478900D94876 /* AppDelegate.swift in Sources */,
 				D95687102912478900D94876 /* SceneDelegate.swift in Sources */,
 			);
