@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5A1A041EB02F8AB1ACC2530C /* libPods-AlamofireHW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425608656F47739F5C2AA329 /* libPods-AlamofireHW.a */; };
+		D92CEB7429127730009AA0D4 /* UIStackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92CEB7329127730009AA0D4 /* UIStackView + Extension.swift */; };
+		D92CEB7729127CA9009AA0D4 /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92CEB7629127CA9009AA0D4 /* UILabel + Extension.swift */; };
 		D956870E2912478900D94876 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D956870D2912478900D94876 /* AppDelegate.swift */; };
 		D95687102912478900D94876 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D956870F2912478900D94876 /* SceneDelegate.swift */; };
 		D95687122912478900D94876 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95687112912478900D94876 /* MainViewController.swift */; };
@@ -16,12 +18,15 @@
 		D95687222912484B00D94876 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D95687212912484B00D94876 /* Podfile */; };
 		D98D27D329124E3F00C5B67D /* CardsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D27D229124E3F00C5B67D /* CardsModel.swift */; };
 		D98D27D6291250AA00C5B67D /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D27D5291250AA00C5B67D /* CardCell.swift */; };
+		D9E636D329126C1800F76E49 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E636D229126C1800F76E49 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		425608656F47739F5C2AA329 /* libPods-AlamofireHW.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AlamofireHW.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		759095BC782298C8BBF857E1 /* Pods-AlamofireHW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlamofireHW.release.xcconfig"; path = "Target Support Files/Pods-AlamofireHW/Pods-AlamofireHW.release.xcconfig"; sourceTree = "<group>"; };
 		81FF26D8887A1F15B749593B /* Pods-AlamofireHW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlamofireHW.debug.xcconfig"; path = "Target Support Files/Pods-AlamofireHW/Pods-AlamofireHW.debug.xcconfig"; sourceTree = "<group>"; };
+		D92CEB7329127730009AA0D4 /* UIStackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extension.swift"; sourceTree = "<group>"; };
+		D92CEB7629127CA9009AA0D4 /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
 		D956870A2912478900D94876 /* AlamofireHW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlamofireHW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D956870D2912478900D94876 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D956870F2912478900D94876 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +37,7 @@
 		D95687212912484B00D94876 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		D98D27D229124E3F00C5B67D /* CardsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsModel.swift; sourceTree = "<group>"; };
 		D98D27D5291250AA00C5B67D /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
+		D9E636D229126C1800F76E49 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D92CEB7229127710009AA0D4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D92CEB7329127730009AA0D4 /* UIStackView + Extension.swift */,
+				D92CEB7629127CA9009AA0D4 /* UILabel + Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D92CEB752912776E009AA0D4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D95687112912478900D94876 /* MainViewController.swift */,
+				D9E636D229126C1800F76E49 /* DetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		D95687012912478900D94876 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +112,7 @@
 				D98D27CE291249FC00C5B67D /* App */,
 				D98D27D029124A0F00C5B67D /* Sources */,
 				D98D27CF29124A0600C5B67D /* Resources */,
+				D92CEB7229127710009AA0D4 /* Extensions */,
 			);
 			path = AlamofireHW;
 			sourceTree = "<group>";
@@ -114,7 +139,7 @@
 		D98D27D029124A0F00C5B67D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D95687112912478900D94876 /* MainViewController.swift */,
+				D92CEB752912776E009AA0D4 /* Controllers */,
 				D98D27D42912508600C5B67D /* Cells */,
 				D98D27D129124E2700C5B67D /* Models */,
 			);
@@ -235,8 +260,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D98D27D6291250AA00C5B67D /* CardCell.swift in Sources */,
+				D92CEB7429127730009AA0D4 /* UIStackView + Extension.swift in Sources */,
+				D92CEB7729127CA9009AA0D4 /* UILabel + Extension.swift in Sources */,
 				D95687122912478900D94876 /* MainViewController.swift in Sources */,
 				D98D27D329124E3F00C5B67D /* CardsModel.swift in Sources */,
+				D9E636D329126C1800F76E49 /* DetailViewController.swift in Sources */,
 				D956870E2912478900D94876 /* AppDelegate.swift in Sources */,
 				D95687102912478900D94876 /* SceneDelegate.swift in Sources */,
 			);
