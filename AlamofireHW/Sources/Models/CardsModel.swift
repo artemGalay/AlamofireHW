@@ -26,7 +26,7 @@ struct Card: Codable {
     let power, toughness: String?
     let layout: Layout
     let multiverseid: String?
-    let imageURL: String?
+    var imageURL: String?
     let variations: [String]?
     let foreignNames: [ForeignName]?
     let printings: [String]
