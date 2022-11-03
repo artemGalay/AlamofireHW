@@ -49,9 +49,12 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        fetchCards(url: cardsUrl)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        title = "Magic: The Gathering"
         setupHierarchy()
         setupLayout()
+        fetchCards(url: cardsUrl)
     }
 
     // MARK: - Setups
@@ -103,12 +106,10 @@ final class MainViewController: UIViewController {
             cardsUrl = "https://api.magicthegathering.io/v1/cards?name=\(searchBar.text ?? "")"
             fetchCards(url: cardsUrl)
         } else {
-            let allertController = UIAlertController(title: "ERROR", message: "Пустое поле", preferredStyle: .alert)
+            let allertController = UIAlertController(title: "ERROR", message: "Введите название карты", preferredStyle: .alert)
             let allertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             allertController.addAction(allertAction)
             present(allertController, animated: true, completion: nil)
-            cardsUrl = MetricMainViewController.allCardsUrl
-            fetchCards(url: cardsUrl)
         }
     }
 }
