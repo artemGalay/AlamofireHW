@@ -17,7 +17,7 @@ final class DetailViewController: UIViewController {
 
     private let cardImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 15
+        imageView.layer.cornerRadius = MetricDetailViewController.cardImageCornerRadius
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -65,14 +65,14 @@ final class DetailViewController: UIViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([
 
-            cardImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            cardImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            cardImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            cardImage.heightAnchor.constraint(equalToConstant: 500),
+            cardImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: MetricDetailViewController.cardImageTopAnchorConstraint),
+            cardImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: MetricDetailViewController.cardImageLeadingAnchorConstraint),
+            cardImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: MetricDetailViewController.cardImageTrailingAnchorConstraint),
+            cardImage.heightAnchor.constraint(equalToConstant: MetricDetailViewController.cardImageHeightAnchorConstraint),
 
-            stackView.topAnchor.constraint(equalTo: cardImage.bottomAnchor, constant: 10),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+            stackView.topAnchor.constraint(equalTo: cardImage.bottomAnchor, constant: MetricDetailViewController.stackViewTopAnchorConstraint),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: MetricDetailViewController.stackViewLeadingAnchorConstraint),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: MetricDetailViewController.stackViewTrailingAnchorConstraintv)
         ])
     }
 

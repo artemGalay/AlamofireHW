@@ -18,6 +18,7 @@
 		D95687222912484B00D94876 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D95687212912484B00D94876 /* Podfile */; };
 		D98D27D329124E3F00C5B67D /* CardsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D27D229124E3F00C5B67D /* CardsModel.swift */; };
 		D98D27D6291250AA00C5B67D /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D27D5291250AA00C5B67D /* CardCell.swift */; };
+		D99DECF62913DD0D00378001 /* Metric.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99DECF52913DD0D00378001 /* Metric.swift */; };
 		D9E636D329126C1800F76E49 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E636D229126C1800F76E49 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		D95687212912484B00D94876 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		D98D27D229124E3F00C5B67D /* CardsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsModel.swift; sourceTree = "<group>"; };
 		D98D27D5291250AA00C5B67D /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
+		D99DECF52913DD0D00378001 /* Metric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metric.swift; sourceTree = "<group>"; };
 		D9E636D229126C1800F76E49 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,8 +74,8 @@
 		D92CEB7229127710009AA0D4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D92CEB7329127730009AA0D4 /* UIStackView + Extension.swift */,
-				D92CEB7629127CA9009AA0D4 /* UILabel + Extension.swift */,
+				D99DECF72913E8C700378001 /* UIKit */,
+				D99DECF42913DCEF00378001 /* Metric */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -160,6 +162,23 @@
 				D98D27D5291250AA00C5B67D /* CardCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		D99DECF42913DCEF00378001 /* Metric */ = {
+			isa = PBXGroup;
+			children = (
+				D99DECF52913DD0D00378001 /* Metric.swift */,
+			);
+			path = Metric;
+			sourceTree = "<group>";
+		};
+		D99DECF72913E8C700378001 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				D92CEB7629127CA9009AA0D4 /* UILabel + Extension.swift */,
+				D92CEB7329127730009AA0D4 /* UIStackView + Extension.swift */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +284,7 @@
 				D95687122912478900D94876 /* MainViewController.swift in Sources */,
 				D98D27D329124E3F00C5B67D /* CardsModel.swift in Sources */,
 				D9E636D329126C1800F76E49 /* DetailViewController.swift in Sources */,
+				D99DECF62913DD0D00378001 /* Metric.swift in Sources */,
 				D956870E2912478900D94876 /* AppDelegate.swift in Sources */,
 				D95687102912478900D94876 /* SceneDelegate.swift in Sources */,
 			);
