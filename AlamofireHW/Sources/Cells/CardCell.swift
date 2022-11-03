@@ -7,29 +7,35 @@
 
 import UIKit
 
-class CardCell: UITableViewCell {
+final class CardCell: UITableViewCell {
+
+    //MARK: - Property
 
     static let identifier = "CardCell"
 
-    var card: Card? {
-        didSet {
-            manaCostLabel.text = card?.type
-            nameLabel.text = card?.name
-            DispatchQueue.global().async {
-                guard let imagePath = self.card?.imageUrl,
-                      let imageURL = URL(string: imagePath),
-                      let imageData = try? Data(contentsOf: imageURL) else {
-                    DispatchQueue.main.async {
-                        self.cardImage.image = UIImage(named: "noImage")
+    var cards: Card?
+
+        var card: Card? {
+            didSet {
+                manaCostLabel.text = card?.type
+                nameLabel.text = card?.name
+                DispatchQueue.global().async {
+                    guard let imagePath = self.card?.imageUrl,
+                          let imageURL = URL(string: imagePath),
+                          let imageData = try? Data(contentsOf: imageURL) else {
+                        DispatchQueue.main.async {
+                            self.cardImage.image = UIImage(named: "noImage")
+                        }
+                        return
                     }
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.cardImage.image = UIImage(data: imageData)
+                    DispatchQueue.main.async {
+                        self.cardImage.image = UIImage(data: imageData)
+                    }
                 }
             }
         }
-    }
+
+    //MARK: - UIElements
 
     private let manaCostLabel = UILabel(numberOfLines: 0)
 
@@ -48,6 +54,8 @@ class CardCell: UITableViewCell {
         return imageView
     }()
 
+    // MARK: - Lifecycle
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupHierarchy()
@@ -57,6 +65,8 @@ class CardCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Setups
 
     private func setupHierarchy() {
         addSubview(nameLabel)

@@ -8,25 +8,17 @@
 import UIKit
 import Alamofire
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
 
-    var magicUrl = "https://api.magicthegathering.io/v1/cards"
+    //MARK: - Property
+
+    var cardsUrl = "https://api.magicthegathering.io/v1/cards"
 
     var cards: [Card] = []
 
     // MARK: - UIElements
 
-//    private let searchTextfield: UITextField = {
-//        let textField = UITextField()
-//        textField.placeholder = "Search card name"
-//        textField.layer.borderWidth = 1
-//        textField.layer.borderColor = UIColor.black.cgColor
-//        textField.layer.cornerRadius = 5
-//        textField.translatesAutoresizingMaskIntoConstraints = false
-//        return textField
-//    }()
-
-    var searchBar: UISearchBar = {
+    private let searchBar: UISearchBar = {
         var searchBar = UISearchBar()
         searchBar.searchBarStyle = UISearchBar.Style.minimal
         searchBar.barTintColor = UIColor(displayP3Red: 0.96, green: 0.96, blue: 0.98, alpha: 1)
@@ -34,7 +26,7 @@ class MainViewController: UIViewController {
         return searchBar
     }()
 
-    lazy var searchButton: UIButton = {
+    private lazy var searchButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "searchButton")?.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
@@ -52,17 +44,17 @@ class MainViewController: UIViewController {
         return tableView
     }()
 
-
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        fetchCards()
+        fetchCards(url: cardsUrl)
         setupHierarchy()
         setupLayout()
-
-
     }
+
+    // MARK: - Setups
 
     private func setupHierarchy() {
         view.addSubview(searchBar)
@@ -90,48 +82,34 @@ class MainViewController: UIViewController {
         ])
     }
 
-    func fetchCards() {
-        DispatchQueue.main.async {
-            let request = AF.request(self.magicUrl)
-            request.responseDecodable(of: Cards.self) { data in
-                guard let char = data.value else { return }
-                let cardss = char.cards
-                self.cards = cardss
+    //MARK: - Fetch Cards
 
+    private func fetchCards(url: String) {
+        DispatchQueue.main.async {
+            let request = AF.request(url)
+            request.responseDecodable(of: Cards.self) { data in
+                guard let data = data.value else { return }
+                let cards = data.cards
+                self.cards = cards
                 self.cardsTableView.reloadData()
             }
         }
     }
 
-    @objc func tapButton() {
+    //MARK: - Button Action
+
+    @objc private func tapButton() {
         if searchBar.text?.isEmpty == false {
-            magicUrl = "https://api.magicthegathering.io/v1/cards?name=\(searchBar.text ?? "")"
-//            DispatchQueue.main.async {
-                fetchCards()
-//            }
-//            showAlert()
+            cardsUrl = "https://api.magicthegathering.io/v1/cards?name=\(searchBar.text ?? "")"
+            fetchCards(url: cardsUrl)
         } else {
-            magicUrl = "https://api.magicthegathering.io/v1/cards"
-            fetchCards()
+            let allertController = UIAlertController(title: "ERROR", message: "Введите имя карты", preferredStyle: .alert)
+            let allertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            allertController.addAction(allertAction)
+            present(allertController, animated: true, completion: nil)
         }
     }
-
-//    @objc func searchButtonTapped() {
-//        if searchBar.text?.isEmpty == false {
-////            print(searchTextfield.text ?? "")
-//            url = "https://api.magicthegathering.io/v1/cards?name=\(searchBar.text ?? "")"
-//
-////            DispatchQueue.main.async {
-//                fetchCharacter()
-////            }
-//            } else {
-//                url = "https://api.magicthegathering.io/v1/cards"
-//                fetchCharacter()
-//            }
-//        }
-    }
-
-
+}
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
@@ -155,6 +133,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         let viewController = DetailViewController()
         viewController.cards = cards[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
-        present(viewController, animated: true)
+        navigationController?.present(viewController, animated: true)
     }
 }
