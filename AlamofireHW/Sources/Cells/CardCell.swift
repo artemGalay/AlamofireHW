@@ -13,27 +13,25 @@ final class CardCell: UITableViewCell {
 
     static let identifier = "CardCell"
 
-    var cards: Card?
-
-        var card: Card? {
-            didSet {
-                manaCostLabel.text = card?.type
-                nameLabel.text = card?.name
-                DispatchQueue.global().async {
-                    guard let imagePath = self.card?.imageUrl,
-                          let imageURL = URL(string: imagePath),
-                          let imageData = try? Data(contentsOf: imageURL) else {
-                        DispatchQueue.main.async {
-                            self.cardImage.image = UIImage(named: "noImage")
-                        }
-                        return
-                    }
+    var card: Card? {
+        didSet {
+            manaCostLabel.text = card?.type
+            nameLabel.text = card?.name
+            DispatchQueue.global().async {
+                guard let imagePath = self.card?.imageUrl,
+                      let imageURL = URL(string: imagePath),
+                      let imageData = try? Data(contentsOf: imageURL) else {
                     DispatchQueue.main.async {
-                        self.cardImage.image = UIImage(data: imageData)
+                        self.cardImage.image = UIImage(named: "noImage")
                     }
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.cardImage.image = UIImage(data: imageData)
                 }
             }
         }
+    }
 
     //MARK: - UIElements
 
@@ -41,18 +39,23 @@ final class CardCell: UITableViewCell {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = .systemFont(ofSize: MetricCardCell.nameLabelFontSize, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let cardImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 15
+        imageView.layer.cornerRadius = MetricCardCell.cardImageCornerRadius
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+
+    private lazy var labelStackView = UIStackView(arrangeSubview: [manaCostLabel, nameLabel],
+                                             axis: .vertical,
+                                             spacing: 5,
+                                             distribution: .fillProportionally)
 
     // MARK: - Lifecycle
 
@@ -69,25 +72,20 @@ final class CardCell: UITableViewCell {
     // MARK: - Setups
 
     private func setupHierarchy() {
-        addSubview(nameLabel)
-        addSubview(manaCostLabel)
+        addSubview(labelStackView)
         addSubview(cardImage)
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
             cardImage.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cardImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            cardImage.heightAnchor.constraint(equalToConstant: 60),
-            cardImage.widthAnchor.constraint(equalToConstant: 60),
+            cardImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: MetricCardCell.cardImageLeadingAnchorConstraint),
+            cardImage.heightAnchor.constraint(equalToConstant: MetricCardCell.cardImageHeightAnchorConstraint),
+            cardImage.widthAnchor.constraint(equalToConstant: MetricCardCell.cardImageWidthAnchorConstraint),
 
-            nameLabel.topAnchor.constraint(equalTo: manaCostLabel.bottomAnchor, constant: 10),
-            nameLabel.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-
-            manaCostLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            manaCostLabel.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10),
-            manaCostLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            labelStackView.topAnchor.constraint(equalTo: topAnchor, constant: MetricCardCell.labelStackViewTopAnchorConstraint),
+            labelStackView.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: MetricCardCell.labelStackViewLeadingAnchorConstraint),
+            labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: MetricCardCell.labelStackViewTrailingAnchorConstraint),
         ])
     }
 }
