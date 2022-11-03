@@ -111,8 +111,8 @@
 			children = (
 				D98D27CE291249FC00C5B67D /* App */,
 				D98D27D029124A0F00C5B67D /* Sources */,
-				D98D27CF29124A0600C5B67D /* Resources */,
 				D92CEB7229127710009AA0D4 /* Extensions */,
+				D98D27CF29124A0600C5B67D /* Resources */,
 			);
 			path = AlamofireHW;
 			sourceTree = "<group>";
