@@ -16,11 +16,11 @@ class CardCell: UITableViewCell {
             manaCostLabel.text = card?.type
             nameLabel.text = card?.name
             DispatchQueue.global().async {
-                guard let imagePath = self.card?.imageURL,
+                guard let imagePath = self.card?.imageUrl,
                       let imageURL = URL(string: imagePath),
                       let imageData = try? Data(contentsOf: imageURL) else {
                     DispatchQueue.main.async {
-                        self.cardImage.image = UIImage(named: "")
+                        self.cardImage.image = UIImage(named: "noImage")
                     }
                     return
                 }
@@ -31,7 +31,7 @@ class CardCell: UITableViewCell {
         }
     }
 
-    private let manaCostLabel = UILabel(numberOfLines: 1)
+    private let manaCostLabel = UILabel(numberOfLines: 0)
 
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -59,8 +59,8 @@ class CardCell: UITableViewCell {
     }
 
     private func setupHierarchy() {
-        addSubview(manaCostLabel)
         addSubview(nameLabel)
+        addSubview(manaCostLabel)
         addSubview(cardImage)
     }
 
@@ -71,13 +71,13 @@ class CardCell: UITableViewCell {
             cardImage.heightAnchor.constraint(equalToConstant: 60),
             cardImage.widthAnchor.constraint(equalToConstant: 60),
 
+            nameLabel.topAnchor.constraint(equalTo: manaCostLabel.bottomAnchor, constant: 10),
+            nameLabel.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+
             manaCostLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             manaCostLabel.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10),
             manaCostLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-
-            nameLabel.topAnchor.constraint(equalTo: manaCostLabel.bottomAnchor, constant: 10),
-            nameLabel.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
     }
 }

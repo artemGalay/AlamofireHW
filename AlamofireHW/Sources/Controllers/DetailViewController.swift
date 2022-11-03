@@ -11,6 +11,8 @@ class DetailViewController: UIViewController {
 
     var cards: Card?
 
+    // MARK: - UIElements
+
     private let manaCostLabel = UILabel(numberOfLines: 2)
 
     private let idLabel = UILabel(numberOfLines: 3)
@@ -35,13 +37,12 @@ class DetailViewController: UIViewController {
                                              axis: .vertical,
                                              spacing: 10,
                                              distribution: .fillProportionally)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupHierarchy()
         setupLayout()
-        fillSettings()
+        configure()
     }
 
     private func setupHierarchy() {
@@ -57,13 +58,13 @@ class DetailViewController: UIViewController {
         ])
     }
 
-    private func fillSettings() {
-        manaCostLabel.text = "manaCost: \((cards?.manaCost) ?? "")"
-        idLabel.text = "id: \((cards?.id) ?? "")"
-        setNameLabel.text = "setName: \((cards?.setName.rawValue) ?? "")"
-        textLabel.text = "text: \((cards?.text) ?? "")"
-        artistLabel.text = "artist: \((cards?.artist) ?? "")"
-        numberLabel.text = "number: \((cards?.number) ?? "")"
-        powerLabel.text = "power: \((cards?.power) ?? "")"
+    private func configure() {
+//        manaCostLabel.text = "manaCost: \((cards?.manaCost) ?? "")"
+//        idLabel.text = "id: \((cards?.id) ?? "")"
+//        setNameLabel.text = "setName: \((cards?.setName.rawValue) ?? "")"
+//        textLabel.text = "text: \((cards?.text) ?? "")"
+//        artistLabel.text = "artist: \((cards?.artist) ?? "")"
+//        numberLabel.text = "number: \((cards?.number) ?? "")"
+//        powerLabel.text = "power: \((cards?.power) ?? "")"
     }
 }
