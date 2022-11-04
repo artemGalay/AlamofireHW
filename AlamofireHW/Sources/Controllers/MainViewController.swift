@@ -127,6 +127,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        func prepareForReuse() {
+            
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier, for: indexPath) as? CardCell
         cell?.card = cards[indexPath.row]
         return cell ?? UITableViewCell()
