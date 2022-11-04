@@ -134,7 +134,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = DetailViewController()
-        viewController.cards = cards[indexPath.row]
+        viewController.card = cards[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.present(viewController, animated: true)
     }

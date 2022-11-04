@@ -11,7 +11,30 @@ final class DetailViewController: UIViewController {
 
     //MARK: - Property
 
-    var cards: Card?
+    var card: Card? {
+        didSet {
+            manaCostLabel.text = "manaCost: \((card?.manaCost) ?? "")"
+            typeLabel.text = "type: \((card?.type) ?? "")"
+            rarityLabel.text = "rarity: \((card?.rarity) ?? "")"
+            textLabel.text = "text: \((card?.text) ?? "")"
+            artistLabel.text = "artist: \((card?.artist) ?? "")"
+            setLabel.text = "set: \((card?.set) ?? "")"
+            
+            DispatchQueue.global().async {
+                guard let imagePath = self.card?.imageUrl,
+                      let imageURL = URL(string: imagePath),
+                      let imageData = try? Data(contentsOf: imageURL) else {
+                    DispatchQueue.main.async {
+                        self.cardImage.image = UIImage(named: "noImage")
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.cardImage.image = UIImage(data: imageData)
+                }
+            }
+        }
+    }
 
     // MARK: - UIElements
 
@@ -52,7 +75,6 @@ final class DetailViewController: UIViewController {
         view.backgroundColor = .white
         setupHierarchy()
         setupLayout()
-        configure()
     }
 
     // MARK: - Setups
@@ -74,25 +96,5 @@ final class DetailViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: MetricDetailViewController.stackViewLeadingAnchorConstraint),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: MetricDetailViewController.stackViewTrailingAnchorConstraintv)
         ])
-    }
-
-    // MARK: - Configure
-
-    private func configure() {
-        manaCostLabel.text = "manaCost: \((cards?.manaCost) ?? "")"
-        typeLabel.text = "type: \((cards?.type) ?? "")"
-        rarityLabel.text = "rarity: \((cards?.rarity) ?? "")"
-        textLabel.text = "text: \((cards?.text) ?? "")"
-        artistLabel.text = "artist: \((cards?.artist) ?? "")"
-        setLabel.text = "set: \((cards?.set) ?? "")"
-
-        guard let imageUrl = cards?.imageUrl,
-              let url = URL(string: imageUrl),
-              let imageData = try? Data(contentsOf: url)
-        else {
-            cardImage.image = UIImage(named: "noImage")
-            return
-        }
-        cardImage.image = UIImage(data: imageData)
     }
 }
