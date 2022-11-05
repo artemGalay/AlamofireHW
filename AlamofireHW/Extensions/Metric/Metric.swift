@@ -18,7 +18,7 @@ extension MainViewController {
 
         static let searchBarTopAnchorConstraint: CGFloat = 10
         static let searchBarLeadingAnchorConstraint: CGFloat = 10
-        static let searchBarTrailingAnchorConstraint: CGFloat = -100
+        static let searchBarTrailingAnchorConstraint: CGFloat = -10
         static let searchBarHeightAnchorConstraint: CGFloat = 40
 
         static let searchButtonLeadingAnchorConstraint: CGFloat = 5
