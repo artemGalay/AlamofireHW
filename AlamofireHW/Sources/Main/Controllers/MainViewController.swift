@@ -14,24 +14,19 @@ final class MainViewController: UIViewController {
 
     var cardsUrl = MetricMainViewController.allCardsUrl
     var cards: [Card] = []
+    var timer: Timer?
 
     // MARK: - UIElements
 
-    private let searchBar: UISearchBar = {
+    private lazy var searchBar: UISearchBar = {
         var searchBar = UISearchBar()
         searchBar.searchBarStyle = UISearchBar.Style.minimal
         searchBar.barTintColor = UIColor.systemGray
         searchBar.placeholder = "Например: Condemn"
+        searchBar.showsCancelButton = true
+        searchBar.delegate = self
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
-    }()
-
-    private lazy var searchButton: UIButton = {
-        let button = UIButton()
-        button.setImage((MetricMainViewController.searchButtonImage).withRenderingMode(.alwaysOriginal), for: .normal)
-        button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
     }()
 
     private lazy var cardsTableView: UITableView = {
@@ -61,7 +56,6 @@ final class MainViewController: UIViewController {
 
     private func setupHierarchy() {
         view.addSubview(searchBar)
-        view.addSubview(searchButton)
         view.addSubview(cardsTableView)
     }
 
@@ -73,11 +67,6 @@ final class MainViewController: UIViewController {
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: MetricMainViewController.searchBarTrailingAnchorConstraint),
             searchBar.heightAnchor.constraint(equalToConstant: MetricMainViewController.searchBarHeightAnchorConstraint),
 
-            searchButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
-            searchButton.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: MetricMainViewController.searchButtonLeadingAnchorConstraint),
-            searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: MetricMainViewController.searchButtonTrailingAnchorConstraint),
-            searchButton.heightAnchor.constraint(equalToConstant: MetricMainViewController.searchButtonHeightAnchorConstraint),
-
             cardsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: MetricMainViewController.cardsTableViewTopAnchorConstraint),
             cardsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: MetricMainViewController.cardsTableViewBottomAnchorConstraint),
             cardsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: MetricMainViewController.cardsTableViewLeadingAnchorConstraint),
@@ -88,35 +77,33 @@ final class MainViewController: UIViewController {
     //MARK: - Fetch Cards
 
     private func fetchCards(url: String) {
-        DispatchQueue.main.async {
-            let request = AF.request(url)
-            request.responseDecodable(of: Cards.self) { data in
-                guard let data = data.value else { return }
-                let cards = data.cards
-                self.cards = cards
-                self.cardsTableView.reloadData()
-            }
-        }
-    }
-
-    //MARK: - Button Action
-
-    @objc private func tapButton() {
-        if !(searchBar.text?.isEmpty ?? true) {
-            cardsUrl = "https://api.magicthegathering.io/v1/cards?name=\(searchBar.text ?? "")"
-            fetchCards(url: cardsUrl)
-        } else {
-            let allertController = UIAlertController(title: "ERROR", message: "Введите название карты", preferredStyle: .alert)
-            let allertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            allertController.addAction(allertAction)
-            present(allertController, animated: true, completion: nil)
+        let request = AF.request(url)
+        request.responseDecodable(of: Cards.self) { [weak self]data in
+            guard let data = data.value else { return }
+            let cards = data.cards
+            self?.cards = cards
+            self?.cardsTableView.reloadData()
         }
     }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension MainViewController: UITableViewDataSource, UITableViewDelegate {
+extension MainViewController: UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if !searchText.isEmpty {
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
+                self?.cardsUrl = "https://api.magicthegathering.io/v1/cards?name=\(searchText)"
+                self?.fetchCards(url: self?.cardsUrl ?? "")
+            })
+        } else {
+            cardsUrl = MetricMainViewController.allCardsUrl
+            fetchCards(url: cardsUrl)
+        }
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cards.count
@@ -127,10 +114,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        func prepareForReuse() {
-            
-        }
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier, for: indexPath) as? CardCell
         cell?.card = cards[indexPath.row]
         return cell ?? UITableViewCell()
