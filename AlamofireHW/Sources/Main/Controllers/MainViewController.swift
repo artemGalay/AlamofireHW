@@ -116,13 +116,13 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UISear
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier, for: indexPath) as? CardCell
-        cell?.card = cards[indexPath.row]
+        cell?.configureCards(model: cards[indexPath.row])
         return cell ?? UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = DetailViewController()
-        viewController.card = cards[indexPath.row]
+        viewController.configureDetailCards(model: cards[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.present(viewController, animated: true)
     }

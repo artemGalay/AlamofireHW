@@ -13,22 +13,20 @@ final class CardCell: UITableViewCell {
 
     static let identifier = "CardCell"
 
-    var card: Card? {
-        didSet {
-            manaCostLabel.text = card?.type
-            nameLabel.text = card?.name
-            DispatchQueue.global().async {
-                guard let imagePath = self.card?.imageUrl,
-                      let imageURL = URL(string: imagePath),
-                      let imageData = try? Data(contentsOf: imageURL) else {
-                    DispatchQueue.main.async {
-                        self.cardImage.image = UIImage(named: "noImage")
-                    }
-                    return
-                }
+    func configureCards(model: Card?) {
+        manaCostLabel.text = model?.type
+        nameLabel.text = model?.name
+        DispatchQueue.global().async {
+            guard let imagePath = model?.imageUrl,
+                  let imageURL = URL(string: imagePath),
+                  let imageData = try? Data(contentsOf: imageURL) else {
                 DispatchQueue.main.async {
-                    self.cardImage.image = UIImage(data: imageData)
+                    self.cardImage.image = UIImage(named: "noImage")
                 }
+                return
+            }
+            DispatchQueue.main.async {
+                self.cardImage.image = UIImage(data: imageData)
             }
         }
     }
