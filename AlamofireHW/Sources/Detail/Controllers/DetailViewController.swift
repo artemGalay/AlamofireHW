@@ -11,30 +11,35 @@ final class DetailViewController: UIViewController {
 
     //MARK: - Property
 
-    var card: Card? {
-        didSet {
-            manaCostLabel.text = "manaCost: \((card?.manaCost) ?? "")"
-            typeLabel.text = "type: \((card?.type) ?? "")"
-            rarityLabel.text = "rarity: \((card?.rarity) ?? "")"
-            textLabel.text = "text: \((card?.text) ?? "")"
-            artistLabel.text = "artist: \((card?.artist) ?? "")"
-            setLabel.text = "set: \((card?.set) ?? "")"
-            
-            DispatchQueue.global().async {
-                guard let imagePath = self.card?.imageUrl,
-                      let imageURL = URL(string: imagePath),
-                      let imageData = try? Data(contentsOf: imageURL) else {
-                    DispatchQueue.main.async {
-                        self.cardImage.image = UIImage(named: "noImage")
-                    }
-                    return
-                }
+    func configureDetailCards(model: Card?) {
+        manaCostLabel.text = "manaCost: \((model?.manaCost) ?? "")"
+        typeLabel.text = "type: \((model?.type) ?? "")"
+        rarityLabel.text = "rarity: \((model?.rarity) ?? "")"
+        textLabel.text = "text: \((model?.text) ?? "")"
+        artistLabel.text = "artist: \((model?.artist) ?? "")"
+        setLabel.text = "set: \((model?.set) ?? "")"
+
+        DispatchQueue.global().async {
+            guard let imagePath = model?.imageUrl,
+                  let imageURL = URL(string: imagePath),
+                  let imageData = try? Data(contentsOf: imageURL) else {
                 DispatchQueue.main.async {
-                    self.cardImage.image = UIImage(data: imageData)
+                    self.cardImage.image = UIImage(named: "noImage")
                 }
+                return
+            }
+            DispatchQueue.main.async {
+                self.cardImage.image = UIImage(data: imageData)
             }
         }
+
     }
+
+//    var card: Card? {
+//        didSet {
+//
+//        }
+//    }
 
     // MARK: - UIElements
 
