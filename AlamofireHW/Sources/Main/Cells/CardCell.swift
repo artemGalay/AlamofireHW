@@ -13,24 +13,6 @@ final class CardCell: UITableViewCell {
 
     static let identifier = "CardCell"
 
-    func configureCards(model: Card?) {
-        manaCostLabel.text = model?.type
-        nameLabel.text = model?.name
-        DispatchQueue.global().async {
-            guard let imagePath = model?.imageUrl,
-                  let imageURL = URL(string: imagePath),
-                  let imageData = try? Data(contentsOf: imageURL) else {
-                DispatchQueue.main.async {
-                    self.cardImage.image = UIImage(named: "noImage")
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                self.cardImage.image = UIImage(data: imageData)
-            }
-        }
-    }
-
     //MARK: - UIElements
 
     private let manaCostLabel = UILabel(numberOfLines: 0)
@@ -92,5 +74,25 @@ final class CardCell: UITableViewCell {
             labelStackView.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: MetricCardCell.labelStackViewLeadingAnchorConstraint),
             labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: MetricCardCell.labelStackViewTrailingAnchorConstraint),
         ])
+    }
+
+    //MARK: - Configure
+
+    func configureCards(model: Card?) {
+        manaCostLabel.text = model?.type
+        nameLabel.text = model?.name
+        DispatchQueue.global().async {
+            guard let imagePath = model?.imageUrl,
+                  let imageURL = URL(string: imagePath),
+                  let imageData = try? Data(contentsOf: imageURL) else {
+                DispatchQueue.main.async {
+                    self.cardImage.image = UIImage(named: "noImage")
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.cardImage.image = UIImage(data: imageData)
+            }
+        }
     }
 }
