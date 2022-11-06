@@ -9,38 +9,6 @@ import UIKit
 
 final class DetailViewController: UIViewController {
 
-    //MARK: - Property
-
-    func configureDetailCards(model: Card?) {
-        manaCostLabel.text = "manaCost: \((model?.manaCost) ?? "")"
-        typeLabel.text = "type: \((model?.type) ?? "")"
-        rarityLabel.text = "rarity: \((model?.rarity) ?? "")"
-        textLabel.text = "text: \((model?.text) ?? "")"
-        artistLabel.text = "artist: \((model?.artist) ?? "")"
-        setLabel.text = "set: \((model?.set) ?? "")"
-
-        DispatchQueue.global().async {
-            guard let imagePath = model?.imageUrl,
-                  let imageURL = URL(string: imagePath),
-                  let imageData = try? Data(contentsOf: imageURL) else {
-                DispatchQueue.main.async {
-                    self.cardImage.image = UIImage(named: "noImage")
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                self.cardImage.image = UIImage(data: imageData)
-            }
-        }
-
-    }
-
-//    var card: Card? {
-//        didSet {
-//
-//        }
-//    }
-
     // MARK: - UIElements
 
     private let cardImage: UIImageView = {
@@ -101,5 +69,31 @@ final class DetailViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: MetricDetailViewController.stackViewLeadingAnchorConstraint),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: MetricDetailViewController.stackViewTrailingAnchorConstraintv)
         ])
+    }
+
+    //MARK: - Configure
+
+    func configureDetailCards(model: Card?) {
+        manaCostLabel.text = "manaCost: \((model?.manaCost) ?? "")"
+        typeLabel.text = "type: \((model?.type) ?? "")"
+        rarityLabel.text = "rarity: \((model?.rarity) ?? "")"
+        textLabel.text = "text: \((model?.text) ?? "")"
+        artistLabel.text = "artist: \((model?.artist) ?? "")"
+        setLabel.text = "set: \((model?.set) ?? "")"
+
+        DispatchQueue.global().async {
+            guard let imagePath = model?.imageUrl,
+                  let imageURL = URL(string: imagePath),
+                  let imageData = try? Data(contentsOf: imageURL) else {
+                DispatchQueue.main.async {
+                    self.cardImage.image = UIImage(named: "noImage")
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.cardImage.image = UIImage(data: imageData)
+            }
+        }
+
     }
 }
