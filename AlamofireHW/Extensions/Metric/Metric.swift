@@ -13,7 +13,7 @@ extension MainViewController {
     struct MetricMainViewController {
 
         static let searchButtonImage: UIImage = UIImage(named: "searchButton") ?? UIImage()
-        static let allCardsUrl = "https://api.magicthegathering.io/v1/cards"
+//        static let allCardsUrl = "https://api.magicthegathering.io/v1/cards"
         static let heightCell: CGFloat = 70
 
         static let searchBarTopAnchorConstraint: CGFloat = 10

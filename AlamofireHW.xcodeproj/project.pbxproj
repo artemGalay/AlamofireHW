@@ -10,6 +10,8 @@
 		5A1A041EB02F8AB1ACC2530C /* libPods-AlamofireHW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425608656F47739F5C2AA329 /* libPods-AlamofireHW.a */; };
 		D92CEB7429127730009AA0D4 /* UIStackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92CEB7329127730009AA0D4 /* UIStackView + Extension.swift */; };
 		D92CEB7729127CA9009AA0D4 /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92CEB7629127CA9009AA0D4 /* UILabel + Extension.swift */; };
+		D947575D2918672800CD67C0 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D947575C2918672800CD67C0 /* MainPresenter.swift */; };
+		D94757612918EB9E00CD67C0 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94757602918EB9E00CD67C0 /* DetailPresenter.swift */; };
 		D956870E2912478900D94876 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D956870D2912478900D94876 /* AppDelegate.swift */; };
 		D95687102912478900D94876 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D956870F2912478900D94876 /* SceneDelegate.swift */; };
 		D95687122912478900D94876 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95687112912478900D94876 /* MainViewController.swift */; };
@@ -28,6 +30,8 @@
 		81FF26D8887A1F15B749593B /* Pods-AlamofireHW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlamofireHW.debug.xcconfig"; path = "Target Support Files/Pods-AlamofireHW/Pods-AlamofireHW.debug.xcconfig"; sourceTree = "<group>"; };
 		D92CEB7329127730009AA0D4 /* UIStackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extension.swift"; sourceTree = "<group>"; };
 		D92CEB7629127CA9009AA0D4 /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
+		D947575C2918672800CD67C0 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		D94757602918EB9E00CD67C0 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		D956870A2912478900D94876 /* AlamofireHW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlamofireHW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D956870D2912478900D94876 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D956870F2912478900D94876 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,12 +84,28 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		D92CEB752912776E009AA0D4 /* Controllers */ = {
+		D92CEB752912776E009AA0D4 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				D95687112912478900D94876 /* MainViewController.swift */,
 			);
-			path = Controllers;
+			path = View;
+			sourceTree = "<group>";
+		};
+		D947575E291890BA00CD67C0 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				D947575C2918672800CD67C0 /* MainPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		D947575F2918EB7800CD67C0 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				D94757602918EB9E00CD67C0 /* DetailPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		D95687012912478900D94876 = {
@@ -140,6 +160,7 @@
 		D98D27D029124A0F00C5B67D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D98D27D129124E2700C5B67D /* Models */,
 				D98F4B2B291693B400DD7919 /* Main */,
 				D98F4B2C291693D400DD7919 /* Detail */,
 			);
@@ -165,9 +186,9 @@
 		D98F4B2B291693B400DD7919 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				D92CEB752912776E009AA0D4 /* Controllers */,
+				D92CEB752912776E009AA0D4 /* View */,
+				D947575E291890BA00CD67C0 /* Presenter */,
 				D98D27D42912508600C5B67D /* Cells */,
-				D98D27D129124E2700C5B67D /* Models */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -175,17 +196,18 @@
 		D98F4B2C291693D400DD7919 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				D98F4B2D291693E100DD7919 /* Controllers */,
+				D98F4B2D291693E100DD7919 /* View */,
+				D947575F2918EB7800CD67C0 /* Presenter */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
 		};
-		D98F4B2D291693E100DD7919 /* Controllers */ = {
+		D98F4B2D291693E100DD7919 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				D9E636D229126C1800F76E49 /* DetailViewController.swift */,
 			);
-			path = Controllers;
+			path = View;
 			sourceTree = "<group>";
 		};
 		D99DECF42913DCEF00378001 /* Metric */ = {
@@ -306,7 +328,9 @@
 				D92CEB7429127730009AA0D4 /* UIStackView + Extension.swift in Sources */,
 				D92CEB7729127CA9009AA0D4 /* UILabel + Extension.swift in Sources */,
 				D95687122912478900D94876 /* MainViewController.swift in Sources */,
+				D94757612918EB9E00CD67C0 /* DetailPresenter.swift in Sources */,
 				D98D27D329124E3F00C5B67D /* CardsModel.swift in Sources */,
+				D947575D2918672800CD67C0 /* MainPresenter.swift in Sources */,
 				D9E636D329126C1800F76E49 /* DetailViewController.swift in Sources */,
 				D99DECF62913DD0D00378001 /* Metric.swift in Sources */,
 				D956870E2912478900D94876 /* AppDelegate.swift in Sources */,
