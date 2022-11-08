@@ -79,6 +79,7 @@ final class CardCell: UITableViewCell {
     //MARK: - Configure
 
     func configureCards(model: Card?) {
+        
         manaCostLabel.text = model?.type
         nameLabel.text = model?.name
         DispatchQueue.global().async {
