@@ -8,36 +8,39 @@
 import UIKit
 
 protocol DetailViewProtocol: AnyObject {
+    var cardImage: UIImageView { get set }
     func setCards(manaCost: String, type: String, rarity: String, text: String, artist: String, set: String, imageUrl: String?)
 }
 
 final class DetailViewController: UIViewController {
+
+    //MARK: - Properties
     
     var presenter: DetailPresenterProtocol
 
     // MARK: - UIElements
     
-    private let cardImage: UIImageView = {
+    var cardImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = MetricDetailViewController.cardImageCornerRadius
+        imageView.layer.cornerRadius = Metric.cardImageCornerRadius
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    let manaCostLabel = UILabel(numberOfLines: 2)
+    private let manaCostLabel = UILabel(numberOfLines: 2)
     
-    let typeLabel = UILabel(numberOfLines: 3)
+    private let typeLabel = UILabel(numberOfLines: 3)
     
-    let rarityLabel = UILabel(numberOfLines: 1)
+    private let rarityLabel = UILabel(numberOfLines: 1)
     
-    let textLabel = UILabel(numberOfLines: 10)
+    private let textLabel = UILabel(numberOfLines: 10)
     
-    let artistLabel = UILabel(numberOfLines: 1)
+    private let artistLabel = UILabel(numberOfLines: 1)
     
-    let setLabel = UILabel(numberOfLines: 1)
+    private let setLabel = UILabel(numberOfLines: 1)
     
-    lazy var stackView = UIStackView(arrangeSubview: [manaCostLabel,
+    private lazy var stackView = UIStackView(arrangeSubview: [manaCostLabel,
                                                               typeLabel,
                                                               rarityLabel,
                                                               textLabel,
@@ -51,7 +54,6 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setupHierarchy()
         setupLayout()
     }
@@ -68,6 +70,7 @@ final class DetailViewController: UIViewController {
     // MARK: - Setups
     
     private func setupHierarchy() {
+        view.backgroundColor = .white
         view.addSubview(stackView)
         view.addSubview(cardImage)
     }
@@ -75,17 +78,16 @@ final class DetailViewController: UIViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             
-            cardImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: MetricDetailViewController.cardImageTopAnchorConstraint),
-            cardImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: MetricDetailViewController.cardImageLeadingAnchorConstraint),
-            cardImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: MetricDetailViewController.cardImageTrailingAnchorConstraint),
-            cardImage.heightAnchor.constraint(equalToConstant: MetricDetailViewController.cardImageHeightAnchorConstraint),
+            cardImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Metric.cardImageTopOffset),
+            cardImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Metric.cardImageLeadingOffset),
+            cardImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Metric.cardImageTrailingOffset),
+            cardImage.heightAnchor.constraint(equalToConstant: Metric.cardImageHeightOffset),
             
-            stackView.topAnchor.constraint(equalTo: cardImage.bottomAnchor, constant: MetricDetailViewController.stackViewTopAnchorConstraint),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: MetricDetailViewController.stackViewLeadingAnchorConstraint),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: MetricDetailViewController.stackViewTrailingAnchorConstraintv)
+            stackView.topAnchor.constraint(equalTo: cardImage.bottomAnchor, constant: Metric.stackViewTopOffset),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Metric.stackViewLeadingOffset),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Metric.stackViewTrailingOffset)
         ])
     }
-
 }
 
 extension DetailViewController: DetailViewProtocol {
@@ -96,19 +98,22 @@ extension DetailViewController: DetailViewProtocol {
         textLabel.text = text
         artistLabel.text = artist
         setLabel.text = set
-        
-        DispatchQueue.global().async {
-            guard let imagePath = imageUrl,
-                  let imageURL = URL(string: imagePath),
-                  let imageData = try? Data(contentsOf: imageURL) else {
-                DispatchQueue.main.async {
-                    self.cardImage.image = UIImage(named: "noImage")
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                self.cardImage.image = UIImage(data: imageData)
-            }
-        }
+    }
+}
+
+// MARK: - Constants
+
+extension DetailViewController {
+    struct Metric {
+        static let cardImageCornerRadius: CGFloat = 15
+
+        static let cardImageTopOffset: CGFloat = 20
+        static let cardImageLeadingOffset: CGFloat = 10
+        static let cardImageTrailingOffset: CGFloat = -10
+        static let cardImageHeightOffset: CGFloat = 500
+
+        static let stackViewTopOffset: CGFloat = 10
+        static let stackViewLeadingOffset: CGFloat = 10
+        static let stackViewTrailingOffset: CGFloat = -10
     }
 }
