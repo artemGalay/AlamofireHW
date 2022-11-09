@@ -17,8 +17,8 @@ final class MainViewController: UIViewController {
 
     //MARK: - Property
 
-    var presenter: MainPresenterProtocol?
-    var cardsUrl = "https://api.magicthegathering.io/v1/cards"
+    private var presenter: MainPresenterProtocol?
+    private var cardsUrl = "https://api.magicthegathering.io/v1/cards"
 
     // MARK: - UIElements
 
@@ -28,7 +28,6 @@ final class MainViewController: UIViewController {
         searchBar.barTintColor = UIColor.systemGray
         searchBar.placeholder = "Например: Condemn"
         searchBar.showsCancelButton = true
-        searchBar.delegate = self
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
@@ -37,8 +36,6 @@ final class MainViewController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.register(CardCell.self, forCellReuseIdentifier: CardCell.identifier)
-        tableView.dataSource = self
-        tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -48,6 +45,7 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
+        configureDelegate()
         setupHierarchy()
         setupLayout()
     }
@@ -64,6 +62,15 @@ final class MainViewController: UIViewController {
         presenter?.fetchCards(url: cardsUrl)
     }
 
+    //MARK: - Delegate and DataSource
+
+    private func configureDelegate() {
+        cardsTableView.delegate = self
+        cardsTableView.dataSource = self
+
+        searchBar.delegate = self
+    }
+
     // MARK: - Setups
 
     private func setupHierarchy() {
@@ -74,15 +81,15 @@ final class MainViewController: UIViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([
 
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: MetricMainViewController.searchBarTopAnchorConstraint),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: MetricMainViewController.searchBarLeadingAnchorConstraint),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: MetricMainViewController.searchBarTrailingAnchorConstraint),
-            searchBar.heightAnchor.constraint(equalToConstant: MetricMainViewController.searchBarHeightAnchorConstraint),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Metric.searchBarTopOffset),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Metric.searchBarLeadingOffset),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Metric.searchBarTrailingOffset),
+            searchBar.heightAnchor.constraint(equalToConstant: Metric.searchBarHeightOffset),
 
-            cardsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: MetricMainViewController.cardsTableViewTopAnchorConstraint),
-            cardsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: MetricMainViewController.cardsTableViewBottomAnchorConstraint),
-            cardsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: MetricMainViewController.cardsTableViewLeadingAnchorConstraint),
-            cardsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: MetricMainViewController.cardsTableViewTrailingAnchorConstraint)
+            cardsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            cardsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            cardsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            cardsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
@@ -95,7 +102,7 @@ extension MainViewController: MainViewProtocol {
     }
 }
 
-// MARK: - UITableViewDataSource, UITableViewDelegate
+// MARK: - UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
@@ -108,7 +115,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UISear
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        MetricMainViewController.heightCell
+        Metric.heightCell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -119,11 +126,30 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UISear
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         let presenterDeteil = DetailPresenter()
         let viewController = DetailViewController(presenter: presenterDeteil)
         presenterDeteil.view = viewController
-        viewController.presenter.showCard(model: presenter?.getUsedCards(at: indexPath.row))
+        viewController.presenter.showCard(model: presenter?.getUsedCards(at: indexPath.row) ?? Card())
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.present(viewController, animated: true)
+    }
+}
+
+// MARK: - Constants
+
+extension MainViewController {
+
+    struct Metric {
+        static let heightCell: CGFloat = 70
+
+        static let searchBarTopOffset: CGFloat = 10
+        static let searchBarLeadingOffset: CGFloat = 10
+        static let searchBarTrailingOffset: CGFloat = -10
+        static let searchBarHeightOffset: CGFloat = 40
+
+        static let searchButtonLeadingOffset: CGFloat = 5
+        static let searchButtonTrailingOffset: CGFloat = -10
+        static let searchButtonHeightOffset: CGFloat = 40
     }
 }

@@ -19,14 +19,14 @@ final class CardCell: UITableViewCell {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: MetricCardCell.nameLabelFontSize, weight: .bold)
+        label.font = .systemFont(ofSize: Metric.nameLabelFontSize, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let cardImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = MetricCardCell.cardImageCornerRadius
+        imageView.layer.cornerRadius = Metric.cardImageCornerRadius
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -49,6 +49,8 @@ final class CardCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //MARK:  - PrepareForReuse
+
     override func prepareForReuse() {
         super.prepareForReuse()
         nameLabel.text?.removeAll()
@@ -66,13 +68,13 @@ final class CardCell: UITableViewCell {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             cardImage.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cardImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: MetricCardCell.cardImageLeadingAnchorConstraint),
-            cardImage.heightAnchor.constraint(equalToConstant: MetricCardCell.cardImageHeightAnchorConstraint),
-            cardImage.widthAnchor.constraint(equalToConstant: MetricCardCell.cardImageWidthAnchorConstraint),
+            cardImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Metric.cardImageLeadingOffset),
+            cardImage.heightAnchor.constraint(equalToConstant: Metric.cardImageHeightOffset),
+            cardImage.widthAnchor.constraint(equalToConstant: Metric.cardImageWidthOffset),
 
-            labelStackView.topAnchor.constraint(equalTo: topAnchor, constant: MetricCardCell.labelStackViewTopAnchorConstraint),
-            labelStackView.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: MetricCardCell.labelStackViewLeadingAnchorConstraint),
-            labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: MetricCardCell.labelStackViewTrailingAnchorConstraint),
+            labelStackView.topAnchor.constraint(equalTo: topAnchor, constant: Metric.labelStackViewTopOffset),
+            labelStackView.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: Metric.labelStackViewLeadingOffset),
+            labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Metric.labelStackViewTrailingOffset),
         ])
     }
 
@@ -95,5 +97,22 @@ final class CardCell: UITableViewCell {
                 self.cardImage.image = UIImage(data: imageData)
             }
         }
+    }
+}
+
+// MARK: - Constants
+
+extension CardCell {
+    struct Metric {
+        static let nameLabelFontSize: CGFloat = 18
+        static let cardImageCornerRadius: CGFloat = 15
+
+        static let cardImageLeadingOffset: CGFloat = 15
+        static let cardImageHeightOffset: CGFloat = 60
+        static let cardImageWidthOffset: CGFloat = 60
+
+        static let labelStackViewTopOffset: CGFloat = 10
+        static let labelStackViewLeadingOffset: CGFloat = 10
+        static let labelStackViewTrailingOffset: CGFloat = -10
     }
 }
